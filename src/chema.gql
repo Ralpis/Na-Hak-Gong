@@ -4,8 +4,9 @@
 
 type Restaurant {
   name: String!
+  isGood: Boolean
 }
 
 type Query {
-  myRestaurnt: Restaurant!
+  restaurnts(veganOnly: Boolean!): [Restaurant!]!
 }
