@@ -16,3 +16,4 @@ export class RestaurantResolver {
     return true;
   }
 }
+
