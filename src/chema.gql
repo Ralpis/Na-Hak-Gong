@@ -3,14 +3,16 @@
 # ------------------------------------------------------
 
 type Restaurant {
+  id: Float!
   name: String!
   isVegan: Boolean!
   address: String!
   ownerName: String!
+  categoryName: String!
 }
 
 type Query {
-  restaurnts(veganOnly: Boolean!): [Restaurant!]!
+  restaurnts: [Restaurant!]!
 }
 
 type Mutation {
