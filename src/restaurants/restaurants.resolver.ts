@@ -31,5 +31,7 @@ export class RestaurantResolver {
   async updateRestaurant(
     @Args('id') id: number,
     @Args('data') data: UpdateREstaurantDto,
-  ) {}
+  ) {
+    return true;
+  }
 }
