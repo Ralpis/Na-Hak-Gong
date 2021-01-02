@@ -12,7 +12,6 @@ import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
-import { CommonModule } from './common/common.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
 
 @Module({
