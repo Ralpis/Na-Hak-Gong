@@ -40,7 +40,7 @@ import { JwtMiddleware } from './jwt/jwt.middleware';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
-      logging: process.env.NODE_ENV !== 'prod',
+      // logging: process.env.NODE_ENV !== 'prod',
       entities: [User],
     }),
 
