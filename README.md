@@ -8,13 +8,19 @@ The Backend of NA-HAK-GONG
 
 우버이츠 클론 코딩 강의를 마무리 짓고, 
 
-이를 업그레이드하여 나.학.공으로 재탄생시킬 예정입니다.
+챌린지 코스를 진행하면서 이를 업그레이드하여 나.학.공으로 재탄생시킬 예정입니다.
 
 
 
 ##### 현재 진행 단계 
 
-Backend Userprofile CRUD 처리중
+Typeorm And Nest - ~2020.12.25
+
+User CRUD - ~2020.12.31
+
+User Authentication - ~2021.01.03 
+
+Backend - Email verification 진행중
 
 
 
@@ -24,15 +30,26 @@ Backend Userprofile CRUD 처리중
 
 ##### 구동 환경 및 필수 세팅 
 
-- Postgres ( https://www.postgresql.org/download/ )
-- Postico ( https://eggerapps.at/postico/ )
+- Postgres ( https://www.postgresql.org/download/ ) 
+- Postico for mac ( https://eggerapps.at/postico/ )
 - VS Code ( https://code.visualstudio.com/ )
+- TYPEORM (`npm install --save @nestjs/typeorm typeorm pg`)
+- Nest js ( `npm i -g @nestjs/cli` )
 - GraphQL 
 - React
 - Yarn
 - ESLint
 - Prettier
 - Jest 등
+
+###### root에 .env.dev 파일생성 후 Postgres 데이터 베이스 정보 및 PRIVATE_KEY 추가 
+
+PRIVATE_KEY=...
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=...
+DB_PASSWORD=...
+DB_NAME=na-hak-gong
 
 
 
