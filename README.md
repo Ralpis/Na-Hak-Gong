@@ -30,26 +30,27 @@ Backend - Email verification 2021.01.06 (Mailgun permanently Banned )
 
 ##### 구동 환경 및 필수 세팅 
 
+1. 구동 환경
+   - Macpro 2017 Touchbar Bigsur OS 
+     - VS Code, Postgres, Postico
+   - Windows 10 OS
+     - VS Code, Postgres 
+2. 필수 세팅 
+
 - Postgres ( https://www.postgresql.org/download/ ) 
 - Postico for mac ( https://eggerapps.at/postico/ )
 - VS Code ( https://code.visualstudio.com/ )
+- npm (http://www.nodejs.org)
 - TYPEORM (`npm install --save @nestjs/typeorm typeorm pg`)
 - Nest js ( `npm i -g @nestjs/cli` )
+- .env.dev 파일 생성 ( Postgres 데이터 베이스 정보 및 PRIVATE_KEY 추가 )
 - GraphQL 
 - React
 - Yarn
 - ESLint
 - Prettier
+- Mailgun ( 임시적으로 사용 중단 )
 - Jest 등
-
-###### root에 .env.dev 파일생성 후 Postgres 데이터 베이스 정보 및 PRIVATE_KEY 추가 
-
-PRIVATE_KEY=...
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=...
-DB_PASSWORD=...
-DB_NAME=na-hak-gong
 
 
 
@@ -64,7 +65,7 @@ DB_NAME=na-hak-gong
 
 #### POSTGRES 사용한 이유 
 
-1. 새로운 DB툴 사용 
+1. 새로운 DB툴 사용 (기존 My SQL과 크게 달라지는 점은 없지만 개인적으로 기술 사용 스택을 늘리기 위하여)
 
 
 

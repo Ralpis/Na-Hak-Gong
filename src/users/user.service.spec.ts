@@ -6,12 +6,14 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Verification } from './entities/verification.entity';
 import { UsersService } from './users.service';
+import { CreateAccountInput } from './dtos/create-account.dto';
+import { RestaurantResolver } from '../restaurants/restaurants.resolver';
 
-const mockRepository = {
+const mockRepository = ()=>({
   findOne: jest.fn(),
   save: jest.fn(),
   create: jest.fn(),
-};
+});
 
 const mockJwtService = {
   sign: jest.fn(),
@@ -21,6 +23,7 @@ const mockJwtService = {
 const mockMailService = {
   sendVerificationEmail: jest.fn(),
 };
+
 
 type MockRepository<T> = Partial<Record<keyof Repository<User>,jest.Mock>>;
 
@@ -35,11 +38,11 @@ describe('UserService', () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useValue: mockRepository,
+          useValue: mockRepository(),
         },
         {
           provide: getRepositoryToken(Verification),
-          useValue: mockRepository,
+          useValue: mockRepository(),
         },
         {
           provide: JwtService,
@@ -58,12 +61,32 @@ describe('UserService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-  describe("createAccount",()=>{
-      it("Should fail if user exists.",()=>{
-          
-      })
-  })
-  it.todo('createAccount');
+  describe("createAccount",()=>{ 
+    const createAccountArgs={
+        email:'',
+        password:'',
+        role:0,
+    }
+
+      it("Should fail if user exists.",async ()=>{
+         usersRepository.findOne.mockResolvedValue({
+             id:1,
+             email:"hello"
+         }) 
+         const result = await service.createAccount(createAccountArgs);
+         expect(result).toMatchObject({ok: false, error: 'There is a user with that email already'
+        })
+      });
+  it(('should create a new user'),async ()=>{
+    usersRepository.findOne.mockResolvedValue(undefined);
+    usersRepository.create.mockReturnValue(createAccountArgs);
+    await service.createAccount(createAccountArgs);
+    expect(usersRepository.create).toHaveBeenCalledTimes(1);
+    expect(usersRepository.create).toHaveBeenCalledWith(createAccountArgs);
+    expect(usersRepository.save).toHaveBeenCalledTimes(1);
+    expect(usersRepository.save).toHaveBeenCalledWith(createAccountArgs);
+  });
+})
   it.todo('login');
   it.todo('findById');
   it.todo('editProfile');
