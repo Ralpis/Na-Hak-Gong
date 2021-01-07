@@ -14,15 +14,54 @@ The Backend of NA-HAK-GONG
 
 ##### 현재 진행 단계 
 
-Typeorm And Nest - ~2020.12.25
-
-User CRUD - ~2020.12.31
-
-User Authentication - ~2021.01.03 
-
-Backend - Email verification 2021.01.06 (Mailgun permanently Banned )
+- [x] Typeorm And Nest - ~ 2020.12.25
 
 
+- [x] User CRUD - ~ 2020.12.31
+
+
+- [x] User Authentication - ~ 2021.01.03 
+
+
+- [x] Backend - Email verification - ~ 2021.01.06 (Mailgun permanently Banned )
+
+- [ ] Unit Testing The User Service - ~ ing
+
+- [ ] Unit Testing JWT And Mail
+
+- [ ] User Module E2E
+
+- [ ] Restaurant CRUD
+
+- [ ] Dish And Order CRUD
+
+- [ ] Order Subscriptions
+
+- [ ] Payments
+
+- [ ] Frontend Setup
+
+- [ ] Authentication
+
+- [ ] User Pages
+
+- [ ] Restaurants
+
+- [ ] Testing React Components 
+
+- [ ] E2E React Testing
+
+- [ ] Owner Dashboard
+
+- [ ] Payments
+
+- [ ] Making An Order
+
+- [ ] Deploy To Production
+
+- [ ] ------------------------------------------------------------
+
+- [ ] Change Na-Hak-Gong And Functions Renewal 
 
 ------
 

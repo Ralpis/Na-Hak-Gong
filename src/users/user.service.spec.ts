@@ -29,9 +29,9 @@ type MockRepository<T> = Partial<Record<keyof Repository<User>,jest.Mock>>;
 
 describe('UserService', () => {
   let service: UsersService;
-    let usersRepository:MockRepository<User>;
-
-
+  let usersRepository:MockRepository<User>;
+  let verificationsRepository:MockRepository<Verification>;
+ 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       providers: [
@@ -56,6 +56,7 @@ describe('UserService', () => {
     }).compile();
     service = module.get<UsersService>(UsersService);
     usersRepository =module.get(getRepositoryToken(User));
+    verificationsRepository = module.get(getRepositoryToken(Verification));
   });
 
   it('should be defined', () => {
@@ -80,11 +81,21 @@ describe('UserService', () => {
   it(('should create a new user'),async ()=>{
     usersRepository.findOne.mockResolvedValue(undefined);
     usersRepository.create.mockReturnValue(createAccountArgs);
+    usersRepository.save.mockResolvedValue(createAccountArgs);
+    verificationsRepository.create.mockReturnValue(createAccountArgs);
+    verificationsRepository.save.mockResolvedValue(createAccountArgs);
     await service.createAccount(createAccountArgs);
     expect(usersRepository.create).toHaveBeenCalledTimes(1);
     expect(usersRepository.create).toHaveBeenCalledWith(createAccountArgs);
     expect(usersRepository.save).toHaveBeenCalledTimes(1);
     expect(usersRepository.save).toHaveBeenCalledWith(createAccountArgs);
+    expect(verificationsRepository.create).toHaveBeenCalledTimes(1);
+    expect(verificationsRepository.create).toHaveBeenCalledWith({
+      user:createAccountArgs,
+    })
+    expect(verificationsRepository.save).toHaveBeenCalledTimes(1);
+    expect(verificationsRepository.save).toHaveBeenCalledWith(createAccountArgs);
+    
   });
 })
   it.todo('login');
