@@ -20,7 +20,7 @@ User CRUD - ~2020.12.31
 
 User Authentication - ~2021.01.03 
 
-Backend - Email verification 진행중
+Backend - Email verification 2021.01.06 (Mailgun permanently Banned )
 
 
 
@@ -67,4 +67,8 @@ DB_NAME=na-hak-gong
 1. 새로운 DB툴 사용 
 
 
+
+#### Mailgun 문제
+
+mailgun을 이용할 때, 하나의 IP에서만 작업을 해야하며 순간적으로 여러개의 메일을 같은 메일함으로 지속적으로 보냈을 때 영구정지 처리를 당할 수 있다. 그렇기 때문에 Nest JS 에서 제공하는 mail 라이브러리를 사용하는 것으로 교체하거나 다른 메일 라이브러리나 시스템을 찾아봐야할 것 같다. 
 
