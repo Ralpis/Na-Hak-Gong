@@ -74,7 +74,6 @@ export class UsersService {
           error: 'wrong password',
         };
       }
-      console.log(user);
       const token = this.jwtService.sign(user.id);
       return {
         ok: true,
