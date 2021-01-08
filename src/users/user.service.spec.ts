@@ -6,8 +6,6 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Verification } from './entities/verification.entity';
 import { UsersService } from './users.service';
-import { CreateAccountInput } from './dtos/create-account.dto';
-import { RestaurantResolver } from '../restaurants/restaurants.resolver';
 
 const mockRepository = ()=>({
   findOne: jest.fn(),
@@ -32,7 +30,7 @@ describe('UserService', () => {
   let usersRepository:MockRepository<User>;
   let verificationsRepository:MockRepository<Verification>;
  
-  beforeAll(async () => {
+  beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [
         UsersService,
