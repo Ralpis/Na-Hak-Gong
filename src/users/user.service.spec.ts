@@ -117,6 +117,19 @@ describe('UserService', () => {
         error: 'user not found',
       });
     });
+    it('should fail if the password is wronng',async()=>{
+      const mockUser ={
+        id:1,
+        checkPassword:jest.fn(()=>Promise.resolve(false)),
+      }
+      usersRepository.findOne.mockResolvedValue(mockUser);
+      const result = await service.login(loginArgs);
+      console.log(result);
+      expect(result).toEqual({
+        ok: false,
+        error: 'wrong password',
+      });
+    })
   });
   it.todo('findById');
   it.todo('editProfile');

@@ -73,8 +73,8 @@
     "webpack-node-externals": "^2.5.2"
   },
   "jest": {
-    "moduleNameMapper":{
-      "^src/(.*)$":"<rootDir>/$1"
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
     },
     "moduleFileExtensions": [
       "js",
@@ -88,7 +88,7 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns":[
+    "coveragePathIgnorePatterns": [
       "node_modules",
       ".entity.ts",
       ".constants.ts"
