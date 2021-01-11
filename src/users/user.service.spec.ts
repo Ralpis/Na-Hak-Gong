@@ -164,6 +164,6 @@ describe('UserService', () => {
       expect(reuslt).toEqual({ ok: false, error: 'User Not Found' });
     });
   });
-  it.todo('editProfile');
+  describe('editProfile', () => {});
   it.todo('verifyEmail');
 });
