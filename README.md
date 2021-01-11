@@ -112,3 +112,16 @@ The Backend of NA-HAK-GONG
 
 mailgun을 이용할 때, 하나의 IP에서만 작업을 해야하며 순간적으로 여러개의 메일을 같은 메일함으로 지속적으로 보냈을 때 영구정지 처리를 당할 수 있다. 그렇기 때문에 Nest JS 에서 제공하는 mail 라이브러리를 사용하는 것으로 교체하거나 다른 메일 라이브러리나 시스템을 찾아봐야할 것 같다. 
 
+#### Jest Test coverage Error 
+
+- [ ] JEST UNIT TEST COVERAGE ERROR CLEAR
+
+Jest unit test를 진행할 때, coverage를 확인하는 부분에서 필드값이 출력되지 않는 오류가 발생했다. 초기 spec 파일을 완전히 지워버려서 테스트가 안되는 것인지, 아니면 spec 파일 설정을 잘못한 것인지 테스트할 예정
+
+
+
+#### 전체적인 구조 
+
+(구조이미지)
+
+(기능별 구조)
