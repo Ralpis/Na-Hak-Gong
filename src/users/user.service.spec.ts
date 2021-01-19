@@ -30,6 +30,7 @@ describe('UserService', () => {
   let usersRepository: MockRepository<User>;
   let verificationsRepository: MockRepository<Verification>;
   let jwtService: JwtService;
+  let mailService: MailService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -191,9 +192,10 @@ describe('UserService', () => {
       expect(usersRepository.findOne).toHaveBeenCalledWith(
         editProfileArgs.userId
         );
-        expect(verificationsRepository.create).toHaveBeenCalledWith(newUser);
-        expect(verificationsRepository.save).toHaveBeenCalledWith(newUser);
+        expect(verificationsRepository.create).toHaveBeenCalledWith({user:newUser});
+        expect(verificationsRepository.save).toHaveBeenCalledWith(newVerification);
 
+        expect(mailService.sendVerificationEmail).toHaveBeenCalledWith(newUser.email,newVerification.code);
     });
 
   });
