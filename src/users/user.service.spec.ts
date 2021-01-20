@@ -55,6 +55,7 @@ describe('UserService', () => {
       ],
     }).compile();
     service = module.get<UsersService>(UsersService);
+    mailService = module.get<MailService>(MailService);
     usersRepository = module.get(getRepositoryToken(User));
     verificationsRepository = module.get(getRepositoryToken(Verification));
     jwtService = module.get<JwtService>(JwtService);
@@ -63,17 +64,18 @@ describe('UserService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
   describe('createAccount', () => {
     const createAccountArgs = {
-      email: '',
-      password: '',
+      email: 'a@email.com',
+      password: 'bs.password',
       role: 0,
     };
 
     it('Should fail if user exists.', async () => {
       usersRepository.findOne.mockResolvedValue({
         id: 1,
-        email: 'hello',
+        email: '',
       });
       const result = await service.createAccount(createAccountArgs);
       expect(result).toMatchObject({
@@ -81,32 +83,51 @@ describe('UserService', () => {
         error: 'There is a user with that email already',
       });
     });
+
     it('should create a new user', async () => {
       usersRepository.findOne.mockResolvedValue(undefined);
       usersRepository.create.mockReturnValue(createAccountArgs);
       usersRepository.save.mockResolvedValue(createAccountArgs);
-      verificationsRepository.create.mockReturnValue(createAccountArgs);
-      verificationsRepository.save.mockResolvedValue(createAccountArgs);
-      await service.createAccount(createAccountArgs);
+      verificationsRepository.create.mockReturnValue({
+        user: createAccountArgs,
+      });
+      verificationsRepository.save.mockResolvedValue({
+        code: 'code',
+      });
+
+      const result = await service.createAccount(createAccountArgs);
+
       expect(usersRepository.create).toHaveBeenCalledTimes(1);
       expect(usersRepository.create).toHaveBeenCalledWith(createAccountArgs);
+
       expect(usersRepository.save).toHaveBeenCalledTimes(1);
       expect(usersRepository.save).toHaveBeenCalledWith(createAccountArgs);
+
       expect(verificationsRepository.create).toHaveBeenCalledTimes(1);
       expect(verificationsRepository.create).toHaveBeenCalledWith({
         user: createAccountArgs,
       });
+
       expect(verificationsRepository.save).toHaveBeenCalledTimes(1);
-      expect(verificationsRepository.save).toHaveBeenCalledWith(
-        createAccountArgs,
+      expect(verificationsRepository.save).toHaveBeenCalledWith({
+          user:createAccountArgs,
+        });
+
+      expect(mailService.sendVerificationEmail).toHaveBeenCalledTimes(1);
+      expect(mailService.sendVerificationEmail).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(String),
       );
+      expect(result).toEqual({ ok: true });
     });
+
     it('Should fail on exception.', async () => {
       usersRepository.findOne.mockRejectedValue(new Error());
       const result = await service.createAccount(createAccountArgs);
       expect(result).toEqual({ ok: false, error: "Couldn't create account" });
     });
   });
+
   describe('login', () => {
     const loginArgs = {
       email: 'bs@email.com',
@@ -173,7 +194,7 @@ describe('UserService', () => {
       };
       const editProfileArgs = {
         userId:1,
-        input:{email:"a@old.com"},
+        input:{email:"a@new.com"},
       };
       const newVerification = {
         code:"code",
@@ -188,14 +209,22 @@ describe('UserService', () => {
       verificationsRepository.save.mockResolvedValue(newVerification);
 
       await service.editProfile(editProfileArgs.userId,editProfileArgs.input);
+
       expect(usersRepository.findOne).toHaveBeenCalledTimes(1);
       expect(usersRepository.findOne).toHaveBeenCalledWith(
         editProfileArgs.userId
-        );
-        expect(verificationsRepository.create).toHaveBeenCalledWith({user:newUser});
-        expect(verificationsRepository.save).toHaveBeenCalledWith(newVerification);
+      );
+      expect(verificationsRepository.create).toHaveBeenCalledWith({
+        user:newUser
+      });
+      expect(verificationsRepository.save).toHaveBeenCalledWith(
+        newVerification
+      );
 
-        expect(mailService.sendVerificationEmail).toHaveBeenCalledWith(newUser.email,newVerification.code);
+      expect(mailService.sendVerificationEmail).toHaveBeenCalledWith(
+        newUser.email,
+        newVerification.code,
+      );
     });
 
   });

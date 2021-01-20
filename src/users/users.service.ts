@@ -40,7 +40,7 @@ export class UsersService {
           user,
         }),
       );
-      // this.mailService.sendVerificationEmail(user.email,verification.code);
+      this.mailService.sendVerificationEmail(user.email,verification.code);
       return { ok: true };
     } catch (e) {
       console.log(e);
@@ -108,8 +108,8 @@ export class UsersService {
       if (email) {
         user.email = email;
         user.verified = false;
-        await this.verification.save(this.verification.create({ user }));
-        // this.mailService.sendVerificationEmail(user.email,verification.code);
+        const verification = await this.verification.save(this.verification.create({ user }));
+        this.mailService.sendVerificationEmail(user.email,verification.code);
       }
       if (password) {
         user.password = password;
