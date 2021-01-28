@@ -61,7 +61,7 @@
     "eslint": "7.12.1",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
-    "jest": "26.6.2",
+    "jest": "^25.5.4",
     "prettier": "^1.19.1",
     "start-server-webpack-plugin": "^2.2.5",
     "supertest": "^4.0.2",
@@ -73,9 +73,6 @@
     "webpack-node-externals": "^2.5.2"
   },
   "jest": {
-    "moduleNameMapper": {
-      "^src/(.*)$": "<rootDir>/$1"
-    },
     "moduleFileExtensions": [
       "js",
       "json",
@@ -85,6 +82,9 @@
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
