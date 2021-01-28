@@ -25,9 +25,9 @@ The Backend of NA-HAK-GONG
 
 - [x] Backend - Email verification - ~ 2021.01.06 (Mailgun permanently Banned )
 
-- [ ] Unit Testing The User Service - ~ ing
+- [x] Unit Testing The User Service - ~2021.01.27
 
-- [ ] Unit Testing JWT And Mail
+- [x] Unit Testing JWT And Mail - ~2021.01.28
 
 - [ ] User Module E2E
 

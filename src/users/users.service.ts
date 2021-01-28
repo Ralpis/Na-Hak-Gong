@@ -40,7 +40,7 @@ export class UsersService {
           user,
         }),
       );
-      this.mailService.sendVerificationEmail(user.email,verification.code);
+      this.mailService.sendVerificationEmail(user.email, verification.code);
       return { ok: true };
     } catch (e) {
       return { ok: false, error: "Couldn't create account" };
@@ -81,7 +81,7 @@ export class UsersService {
     } catch (error) {
       return {
         ok: false,
-        error,
+        error: "Can't log user in.",
       };
     }
   }
@@ -107,8 +107,10 @@ export class UsersService {
       if (email) {
         user.email = email;
         user.verified = false;
-        const verification = await this.verification.save(this.verification.create({ user }));
-        this.mailService.sendVerificationEmail(user.email,verification.code);
+        const verification = await this.verification.save(
+          this.verification.create({ user }),
+        );
+        this.mailService.sendVerificationEmail(user.email, verification.code);
       }
       if (password) {
         user.password = password;
@@ -134,7 +136,7 @@ export class UsersService {
       }
       return { ok: false, error: 'Verification not Found.' };
     } catch (error) {
-      return { ok: false, error:'Could not verify email.' };
+      return { ok: false, error: 'Could not verify email.' };
     }
   }
 }
