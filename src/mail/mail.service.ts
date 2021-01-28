@@ -9,12 +9,7 @@ export class MailService {
   constructor(
     @Inject(CONFIG_OPTIONS) private readonly options: MailModuleOptions,
   ) {}
-  private async sendEmail(
-    subject: string,
-    to: string,
-    template: string,
-    emailVars: EmailVars[],
-  ) {
+  async sendEmail(subject: string, template: string, emailVars: EmailVars[]) {
     const form = new FormData();
     form.append('from', `NA-HAK-GONG <mailgun@${this.options.domain}>`);
     form.append('to', `rotjsdn1@naver.com`);
@@ -37,13 +32,9 @@ export class MailService {
   }
 
   sendVerificationEmail(email: string, code: string) {
-    //   this.sendEmail("Verify Your Email","verify-email",[{"key":code,value:code},{
-    //     key:'username', value: email,
-    //   }
-    // ]).then(()=>{
-    //     console.log("Message sent");
-    //     }).catch((error)=>{
-    //     console.log(error.response.body);
-    //     });
+    this.sendEmail('Verify Your Email', 'verify-email', [
+      { key: 'code', value: code },
+      { key: 'username', value: email },
+    ]);
   }
 }
