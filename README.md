@@ -114,9 +114,15 @@ mailgun을 이용할 때, 하나의 IP에서만 작업을 해야하며 순간적
 
 #### Jest Test coverage Error 
 
-- [ ] JEST UNIT TEST COVERAGE ERROR CLEAR
+- [x] JEST UNIT TEST COVERAGE ERROR CLEAR
 
 Jest unit test를 진행할 때, coverage를 확인하는 부분에서 필드값이 출력되지 않는 오류가 발생했다. 초기 spec 파일을 완전히 지워버려서 테스트가 안되는 것인지, 아니면 spec 파일 설정을 잘못한 것인지 테스트할 예정
+
+
+
+#### Jest Test Coverage 0% 
+
+Jest가 TS를 지원하지 않는 버젼이 있어서 다운그레이드를 하여 해결하였다. 하지만 다운그레이드 이후 몇몇 파일을 출력하지 못하는 에러가 발생해 가장 최근 버젼으로 버젼 업을 하여 해결
 
 
 
