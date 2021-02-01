@@ -16,6 +16,7 @@ enum UserRole {
   Owner,
   Delivery,
 }
+
 registerEnumType(UserRole, { name: 'UserRole' });
 
 @InputType('UserInputType', { isAbstract: true })
@@ -32,10 +33,7 @@ export class User extends CoreEntity {
   @IsString()
   password: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-  })
+  @Column({ type: 'enum', enum: UserRole })
   @Field(type => UserRole)
   @IsEnum(UserRole)
   role: UserRole;

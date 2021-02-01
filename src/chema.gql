@@ -7,8 +7,9 @@ type Category {
   createAt: DateTime!
   updateAt: DateTime!
   name: String!
-  coverImage: String!
-  restaurants: [Restaurant!]!
+  coverImg: String
+  slug: String!
+  restaurants: [Restaurant!]
 }
 
 """
@@ -21,10 +22,10 @@ type Restaurant {
   createAt: DateTime!
   updateAt: DateTime!
   name: String!
-  coverImage: String!
+  coverImg: String!
   address: String!
   category: Category
-  owner: User
+  owner: User!
 }
 
 type User {
@@ -110,9 +111,8 @@ input VerifyEmailInput {
 }
 
 input CreateRestaurantInput {
-  createAt: DateTime!
-  updateAt: DateTime!
   name: String!
-  coverImage: String!
-  address: String!
+  coverImg: String!
+  address: String = "강남"
+  categoryName: String!
 }

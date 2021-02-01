@@ -51,10 +51,6 @@ export class UsersService {
     email,
     password,
   }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
-    // find the user with the email
-    // check if the pass word is correct
-    // make a JWT and give it to the user
-
     try {
       const user = await this.users.findOne(
         { email },
@@ -107,7 +103,7 @@ export class UsersService {
       if (email) {
         user.email = email;
         user.verified = false;
-        this.verification.delete({ user: { id: user.id } });
+        await this.verification.delete({ user: { id: user.id } });
         const verification = await this.verification.save(
           this.verification.create({ user }),
         );
