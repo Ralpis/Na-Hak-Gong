@@ -29,7 +29,7 @@ The Backend of NA-HAK-GONG
 
 - [x] Unit Testing JWT And Mail - ~2021.01.28
 
-- [ ] User Module E2E
+- [x] User Module E2E - ~2021.02.01
 
 - [ ] Restaurant CRUD
 
