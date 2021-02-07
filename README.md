@@ -31,7 +31,7 @@ The Backend of NA-HAK-GONG
 
 - [x] User Module E2E - ~2021.02.01
 
-- [ ] Restaurant CRUD
+- [ ] Restaurant CRUD - ing 
 
 - [ ] Dish And Order CRUD
 
@@ -102,11 +102,13 @@ The Backend of NA-HAK-GONG
 
 
 
-#### POSTGRES 사용한 이유 
+#### POSTGRESQL 사용한 이유 
 
 1. 새로운 DB툴 사용 (기존 My SQL과 크게 달라지는 점은 없지만 개인적으로 기술 사용 스택을 늘리기 위하여)
+2. 오픈 소스 DB로 엔터프라이즈로 전환을 하였을 때, 라이센스 비용이 들지 않기때문에
+3. PostgreSQL도 어느정도 자료 서칭이 가능한 시점이 되었고, 지속해서 버전업을 하기때문에 
 
-
+MySQL과 비교하여 레퍼런스적이나 지원에 있어 아쉬운 부분은 있지만, 나름 괜찮은 데이터베이스로 커스터마이징도 가능하기에 실력이 디벨롭되고 나면 새로운 방식 적용 예정 
 
 #### Mailgun 문제
 
