@@ -55,8 +55,22 @@ export class RestaurantService {
     owner: User,
     editRestaurantInput: EditRestaurantInput,
   ): Promise<EditRestaurantOutput> {
+    try{const restaurant = await this.restaurants.findOne(
+      editRestaurantInput.restaurantId,
+    );
+    if(!restaurant){
+      return{
+        ok:false,
+        error:"Restaurant not found"m
+      }
+    }
     return {
       ok: true,
     };
+  }catch{
+    return{
+      ok:false,
+      error:'Could not edit Restaurant'
+    }
   }
 }
