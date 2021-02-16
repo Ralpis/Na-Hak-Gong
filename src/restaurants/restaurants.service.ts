@@ -54,5 +54,9 @@ export class RestaurantService {
   async editRestaurant(
     owner: User,
     editRestaurantInput: EditRestaurantInput,
-  ): Promise<EditRestaurantOutput> {}
+  ): Promise<EditRestaurantOutput> {
+    return {
+      ok: true,
+    };
+  }
 }
