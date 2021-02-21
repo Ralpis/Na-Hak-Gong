@@ -22,14 +22,8 @@ export class RestaurantService {
     private readonly categories: Repository<Category>,
   ) {}
 
-  async createRestaurant(
-    owner: User,
-    createRestaurantInput: CreateRestaurantInput,
-  ): Promise<CreateRestaurantOutput> {
-    try {
-      const newRestaurant = this.restaurants.create(createRestaurantInput);
-      newRestaurant.owner = owner;
-      const categoryName = createRestaurantInput.categoryName
+  async getOrCreateCategory (name:string):Promise<Category>{
+    const categoryName = name
         .trim()
         .toLowerCase();
       const categorySlug = categoryName.replace(/ /g, '-');
@@ -39,6 +33,17 @@ export class RestaurantService {
           this.categories.create({ slug: categorySlug, name: categoryName }),
         );
       }
+      return category;
+  }
+
+  async createRestaurant(
+    owner: User,
+    createRestaurantInput: CreateRestaurantInput,
+  ): Promise<CreateRestaurantOutput> {
+    try {
+      const newRestaurant = this.restaurants.create(createRestaurantInput);
+      newRestaurant.owner = owner;
+      const category =await this.getOrCreateCategory(createRestaurantInput.categoryName);
       newRestaurant.category = category;
       await this.restaurants.save(newRestaurant);
       return {
@@ -61,8 +66,15 @@ export class RestaurantService {
     if(!restaurant){
       return{
         ok:false,
-        error:"Restaurant not found"m
+        error:"Restaurant not found"
       }
+    }
+    
+    if(owner.id !== restaurant.ownerId){
+      return{
+        ok:false,
+        error:"You can't edit a restaurant that you don't own",
+      };
     }
     return {
       ok: true,
