@@ -119,14 +119,14 @@ input VerifyEmailInput {
 input CreateRestaurantInput {
   name: String!
   coverImg: String!
-  address: String = "강남"
+  address: String!
   categoryName: String!
 }
 
 input EditRestaurantInput {
   name: String
   coverImg: String
-  address: String = "강남"
+  address: String
   categoryName: String
   restaurantId: Float!
 }
