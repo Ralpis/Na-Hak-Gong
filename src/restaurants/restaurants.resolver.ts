@@ -68,6 +68,11 @@ export class RestaurantResolver {
 export class CategoryResolver {
   constructor(private readonly restaurantService: RestaurantService) {}
 
+  @ResolveField(type => Int)
+  restaurantCount(): number {
+    return 90;
+  }
+
   @Query(type => AllCategoriesOutput)
   allCategories(): Promise<AllCategoriesOutput> {
     return this.restaurantService.allCategories();
