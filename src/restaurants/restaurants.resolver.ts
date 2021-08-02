@@ -70,7 +70,7 @@ export class CategoryResolver {
 
   @ResolveField(type => Int)
   restaurantCount(): number {
-    return 90;
+    return 50;
   }
 
   @Query(type => AllCategoriesOutput)
