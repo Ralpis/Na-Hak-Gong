@@ -135,3 +135,6 @@ Jest가 TS를 지원하지 않는 버젼이 있어서 다운그레이드를 하�
 (기능별 구조)
 
 (기능)
+
+#### START 
+NPM RUN START:DEV
