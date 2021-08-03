@@ -80,7 +80,8 @@ export class CategoryResolver {
     return this.restaurantService.allCategories();
   }
 
+  @Query(type =>CategoryOutput)
   category(@Args() CategoryInput:CategoryInput):Promise<CategoryOutput>{
-    return this.restaurantService.findCategoryBySlug();
+    return this.restaurantService.findCategoryBySlug(CategoryInput);
   }
 }

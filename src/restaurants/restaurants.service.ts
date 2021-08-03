@@ -149,7 +149,7 @@ export class RestaurantService {
 
   async findCategoryBySlug({slug}:CategoryInput){
     try {
-      const category = await this.categories.findOne({slug})
+      const category = await this.categories.findOne({slug},{relations:["restaurants"]})
       if(!category){
         return {
           ok:false,
