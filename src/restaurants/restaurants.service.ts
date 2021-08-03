@@ -18,7 +18,8 @@ import {
   DeleteRestaurantOutput,
 } from './dto/delete-restaurant.dto';
 import { AllCategoriesOutput } from './dto/all-categories.dto';
-import { CategoryInput } from './dto/category.dto';
+import { CategoryInput, CategoryOutput } from './dto/category.dto';
+import { RestaurantsInput, RestaurantsOutput } from './dto/restaurants.dto';
 
 @Injectable()
 export class RestaurantService {
@@ -147,7 +148,7 @@ export class RestaurantService {
     return this.restaurants.count({ category });
   }
 
-  async findCategoryBySlug({slug, page}:CategoryInput){
+  async findCategoryBySlug({slug, page}:CategoryInput):Promise<CategoryOutput>{
     try {
       const category = await this.categories.findOne({slug})
       if(!category){
@@ -163,17 +164,37 @@ export class RestaurantService {
         take:25,
         skip: (page-1) * 25,
       });
-      category.restaurants = restaurants;
       const totalResults = await this.countRestaurants(category)
       return {
         ok:true,
         category,
+        restaurants,
         totalPages: Math.ceil(totalResults/25),
       }
     } catch {
       return {
         ok:false,
         error:'Could not load category'
+      };
+    }
+  }
+
+  async allRestaurants({ page }: RestaurantsInput): Promise<RestaurantsOutput> {
+    try {
+      const [restaurants, totalResults] = await this.restaurants.findAndCount({
+        skip: (page - 1) * 25,
+        take: 25,
+      });
+      return {
+        ok: true,
+        results: restaurants,
+        totalPages: Math.ceil(totalResults / 25),
+        totalResults,
+      };
+    } catch {
+      return {
+        ok: false,
+        error: 'Could not load restaurants',
       };
     }
   }

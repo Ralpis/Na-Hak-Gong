@@ -98,6 +98,8 @@ type CategoryOutput {
   error: String
   ok: Boolean!
   totalPages: Int
+  totalResults: Int
+  restaurants: [Restaurant!]
   category: Category
 }
 
