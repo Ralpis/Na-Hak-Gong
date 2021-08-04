@@ -20,6 +20,7 @@ import {
 import { AllCategoriesOutput } from './dto/all-categories.dto';
 import { CategoryInput, CategoryOutput } from './dto/category.dto';
 import { RestaurantsInput, RestaurantsOutput } from './dto/restaurants.dto';
+import { RestaurantInput, RestaurantOutput } from './dto/restaurant.dto';
 
 @Injectable()
 export class RestaurantService {
@@ -148,33 +149,36 @@ export class RestaurantService {
     return this.restaurants.count({ category });
   }
 
-  async findCategoryBySlug({slug, page}:CategoryInput):Promise<CategoryOutput>{
+  async findCategoryBySlug({
+    slug,
+    page,
+  }: CategoryInput): Promise<CategoryOutput> {
     try {
-      const category = await this.categories.findOne({slug})
-      if(!category){
+      const category = await this.categories.findOne({ slug });
+      if (!category) {
         return {
-          ok:false,
-          error:'Category not found',
+          ok: false,
+          error: 'Category not found',
         };
       }
       const restaurants = await this.restaurants.find({
-        where:{
+        where: {
           category,
         },
-        take:25,
-        skip: (page-1) * 25,
+        take: 25,
+        skip: (page - 1) * 25,
       });
-      const totalResults = await this.countRestaurants(category)
+      const totalResults = await this.countRestaurants(category);
       return {
-        ok:true,
+        ok: true,
         category,
         restaurants,
-        totalPages: Math.ceil(totalResults/25),
-      }
+        totalPages: Math.ceil(totalResults / 25),
+      };
     } catch {
       return {
-        ok:false,
-        error:'Could not load category'
+        ok: false,
+        error: 'Could not load category',
       };
     }
   }
@@ -195,6 +199,19 @@ export class RestaurantService {
       return {
         ok: false,
         error: 'Could not load restaurants',
+      };
+    }
+  }
+
+  async findRestaurantById({
+    restaurantId,
+  }: RestaurantInput): Promise<RestaurantOutput> {
+    try {
+      const restaurant = await this.restaurants.findOne();
+    } catch {
+      return {
+        ok: false,
+        error: 'Colut not find restaurant',
       };
     }
   }
