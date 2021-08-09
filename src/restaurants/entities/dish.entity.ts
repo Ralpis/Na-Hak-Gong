@@ -4,6 +4,18 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { Column, Entity, OneToOne, RelationId } from 'typeorm';
 import { Restaurant } from './restaurant.entity';
 
+@ObjectType()
+class DishOption {
+  @Field(type => String)
+  name: string;
+
+  @Field(type => [String])
+  choice: string[];
+
+  @Field(type => Int)
+  price: number;
+}
+
 @InputType('DishInputType', { isAbstract: true })
 @ObjectType()
 @Entity()
@@ -39,4 +51,8 @@ export class Dish extends CoreEntity {
 
   @RelationId((dish: Dish) => dish.restaurant)
   restaurantid: number;
+
+  @Field(type => [DishOption])
+  @Column({ type: 'json' })
+  options: DishOption[];
 }
