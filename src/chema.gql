@@ -20,8 +20,8 @@ scalar DateTime
 
 type DishOption {
   name: String!
-  choice: [String!]!
-  price: Int!
+  choices: [String!]!
+  extra: Int!
 }
 
 type Dish {
