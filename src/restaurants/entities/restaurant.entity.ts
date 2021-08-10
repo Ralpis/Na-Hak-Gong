@@ -40,6 +40,7 @@ export class Restaurant extends CoreEntity {
     user => user.restaurants,
   )
   owner: User;
+
   @RelationId((restaurant: Restaurant) => restaurant.owner)
   ownerId: number;
 

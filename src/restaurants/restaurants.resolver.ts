@@ -118,7 +118,7 @@ export class CategoryResolver {
 }
 
 @Resolver(of => Dish)
-export class DishReslover {
+export class DishResolver {
   constructor(private readonly restaurantService: RestaurantService) {}
 
   @Mutation(type => CreateDishOutput)
