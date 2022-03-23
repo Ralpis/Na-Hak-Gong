@@ -127,6 +127,7 @@ export class RestaurantService {
           error: "You can't delete a restaurant that you don't own",
         };
       }
+      console.log('will delete ! ! ! ', restaurant);
       //await this.restaurants.delete(restaurantId);
       return {
         ok: true,
