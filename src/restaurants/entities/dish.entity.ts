@@ -4,15 +4,22 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { Column, Entity, ManyToOne, OneToOne, RelationId } from 'typeorm';
 import { Restaurant } from './restaurant.entity';
 
+@InputType('DishChoiceInputType', { isAbstract: true })
+@ObjectType()
+class DishChoice {
+  @Field(type => String)
+  name: string;
+  @Field(type => Int, { nullable: true })
+  extra?: number;
+}
+
 @InputType('DishOptionInputType', { isAbstract: true })
 @ObjectType()
 class DishOption {
   @Field(type => String)
   name: string;
-
-  @Field(type => [String], { nullable: true })
-  choices?: string[];
-
+  @Field(type => [DishChoice], { nullable: true })
+  choices?: DishChoice[];
   @Field(type => Int, { nullable: true })
   extra?: number;
 }
@@ -42,11 +49,11 @@ export class Dish extends CoreEntity {
   @Length(5, 140)
   description: string;
 
-  @Field(type => [Restaurant], { nullable: true })
+  @Field(type => Restaurant)
   @ManyToOne(
     type => Restaurant,
     restaurant => restaurant.menu,
-    { onDelete: 'CASCADE', nullable: false },
+    { onDelete: 'CASCADE' },
   )
   restaurant: Restaurant;
 
