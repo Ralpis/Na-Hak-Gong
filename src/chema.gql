@@ -2,22 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Category {
-  id: Float!
-  createAt: DateTime!
-  updateAt: DateTime!
-  name: String!
-  coverImg: String
-  slug: String!
-  restaurants: [Restaurant!]
-  restaurantCount: Int!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type DishChoice {
   name: String!
   extra: Int
@@ -41,6 +25,41 @@ type Dish {
   options: [DishOption!]
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Order {
+  id: Float!
+  createAt: DateTime!
+  updateAt: DateTime!
+  customer: User!
+  driver: User
+  restaurant: Restaurant!
+  dishes: [Dish!]!
+  total: Float!
+  status: OrderStatus!
+}
+
+enum OrderStatus {
+  Pending
+  Cooking
+  PuckedUp
+  Delivered
+}
+
+type Category {
+  id: Float!
+  createAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  coverImg: String
+  slug: String!
+  restaurants: [Restaurant!]
+  restaurantCount: Int!
+}
+
 type Restaurant {
   id: Float!
   createAt: DateTime!
@@ -50,6 +69,7 @@ type Restaurant {
   address: String!
   category: Category
   owner: User!
+  orders: [Order!]!
   menu: [Dish!]!
 }
 
@@ -62,6 +82,8 @@ type User {
   role: UserRole!
   verified: Boolean!
   restaurants: [Restaurant!]!
+  orders: [Order!]!
+  rides: [Order!]!
 }
 
 enum UserRole {
