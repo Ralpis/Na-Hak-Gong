@@ -30,6 +30,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type OrderItem {
+  id: Float!
+  createAt: DateTime!
+  updateAt: DateTime!
+  options: [DishOption!]
+}
+
 type Order {
   id: Float!
   createAt: DateTime!
@@ -37,7 +44,7 @@ type Order {
   customer: User!
   driver: User
   restaurant: Restaurant!
-  dishes: [Dish!]!
+  items: [OrderItem!]!
   total: Float
   status: OrderStatus!
 }
@@ -304,51 +311,10 @@ input DeleteDishInput {
 }
 
 input CreateOrderInput {
-  dishes: [DishInputType!]!
+  items: [OrderItemInputType!]!
   restaurantId: Int!
 }
 
-input DishInputType {
-  name: String!
-  price: Int!
-  photo: String
-  description: String!
-  restaurant: RestaurantInputType!
+input OrderItemInputType {
   options: [DishOptionInputType!]
-}
-
-input RestaurantInputType {
-  name: String!
-  coverImg: String!
-  address: String!
-  category: CategoryInputType
-  owner: UserInputType!
-  orders: [OrderInputType!]!
-  menu: [DishInputType!]!
-}
-
-input CategoryInputType {
-  name: String!
-  coverImg: String
-  slug: String!
-  restaurants: [RestaurantInputType!]
-}
-
-input UserInputType {
-  email: String!
-  password: String!
-  role: UserRole!
-  verified: Boolean!
-  restaurants: [RestaurantInputType!]!
-  orders: [OrderInputType!]!
-  rides: [OrderInputType!]!
-}
-
-input OrderInputType {
-  customer: UserInputType!
-  driver: UserInputType
-  restaurant: RestaurantInputType!
-  dishes: [DishInputType!]!
-  total: Float
-  status: OrderStatus!
 }
