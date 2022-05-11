@@ -311,10 +311,11 @@ input DeleteDishInput {
 }
 
 input CreateOrderInput {
-  items: [OrderItemInputType!]!
   restaurantId: Int!
+  items: [CreateOrderItemInput!]!
 }
 
-input OrderItemInputType {
-  options: [DishOptionInputType!]
+input CreateOrderItemInput {
+  dishId: Int!
+  options: DishOptionInputType
 }
