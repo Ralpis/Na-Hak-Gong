@@ -15,7 +15,7 @@ import { OrderItem } from './order-item.entity';
 export enum OrderStatus {
   Pending = 'Pending',
   Cooking = 'Cooking',
-  PuckedUp = 'PuckedUp',
+  PickedUp = 'PickedUp',
   Delivered = 'Delivered',
 }
 
@@ -25,7 +25,7 @@ registerEnumType(OrderStatus, { name: 'OrderStatus' });
 @ObjectType()
 @Entity()
 export class Order extends CoreEntity {
-  @Field(type => User)
+  @Field(type => User, { nullable: true })
   @ManyToOne(
     type => User,
     user => user.orders,
@@ -33,13 +33,12 @@ export class Order extends CoreEntity {
   )
   customer?: User;
 
-  @Field(type => User)
+  @Field(type => User, { nullable: true })
   @ManyToOne(
     type => User,
     user => user.rides,
     { onDelete: 'SET NULL', nullable: true },
   )
-  @Field(type => User, { nullable: true })
   driver?: User;
 
   @Field(type => Restaurant, { nullable: true })
@@ -55,13 +54,13 @@ export class Order extends CoreEntity {
   @JoinTable()
   items: OrderItem[];
 
-  @Field(type => Float, { nullable: true })
   @Column({ nullable: true })
+  @Field(type => Float, { nullable: true })
   @IsNumber()
   total?: number;
 
-  @Field(type => OrderStatus)
   @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.Pending })
+  @Field(type => OrderStatus)
   @IsEnum(OrderStatus)
   status: OrderStatus;
 }
