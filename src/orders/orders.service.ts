@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Dish } from 'src/restaurants/entities/dish.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -16,6 +17,8 @@ export class OrderService {
     private readonly orderItems: Repository<OrderItem>,
     @InjectRepository(Restaurant)
     private readonly restaurants: Repository<Restaurant>,
+    @InjectRepository(Dish)
+    private readonly dishes: Repository<Dish>,
   ) {}
   async crateOrder(
     customer: User,
@@ -28,10 +31,20 @@ export class OrderService {
         error: 'Restaurant not found',
       };
     }
-    console.log(items.forEach);
-    items.forEach(item => {
-      console.log(item.options);
+    console.log('fuck');
+    items.forEach(async item => {
+      const dish = await this.dishes.findOne(item.dishId);
+      if (!dish) {
+        // abort this whole thing
+      }
+      await this.orderItems.save(
+        this.orderItems.create({
+          dish,
+          options: item.options,
+        }),
+      );
     });
+    /*
     const order = await this.orders.save(
       this.orders.create({
         customer,
@@ -39,5 +52,6 @@ export class OrderService {
       }),
     );
     console.log(order);
+    */
   }
 }

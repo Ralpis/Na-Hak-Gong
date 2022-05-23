@@ -32,7 +32,7 @@ scalar DateTime
 
 type OrderItemOption {
   name: String!
-  choice: String
+  choices: String
   extra: Int
 }
 
@@ -48,7 +48,7 @@ type Order {
   id: Float!
   createAt: DateTime!
   updateAt: DateTime!
-  customer: User!
+  customer: User
   driver: User
   restaurant: Restaurant
   items: [OrderItem!]!
@@ -59,7 +59,7 @@ type Order {
 enum OrderStatus {
   Pending
   Cooking
-  PuckedUp
+  PickedUp
   Delivered
 }
 
@@ -329,6 +329,6 @@ input CreateOrderItemInput {
 
 input OrderItemOptionInputType {
   name: String!
-  choice: String
+  choices: String
   extra: Int
 }
