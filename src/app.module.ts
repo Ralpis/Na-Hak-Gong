@@ -18,7 +18,6 @@ import { MailModule } from './mail/mail.module';
 import { Category } from './restaurants/entities/category.entity';
 import { Restaurant } from './restaurants/entities/restaurant.entity';
 import { RestaurantsModule } from './restaurants/restaurants.module';
-import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { Dish } from './restaurants/entities/dish.entity';
 import { OrdersModule } from './orders/orders.module';
@@ -71,14 +70,14 @@ import { OrderItem } from './orders/entities/order-item.entity';
     JwtModule.forRoot({
       privateKey: process.env.PRIVATE_KEY,
     }),
-    AuthModule,
-    UsersModule,
-    RestaurantsModule,
     MailModule.forRoot({
       apiKey: process.env.MAILGUN_API_KEY,
       domain: process.env.MAILGUN_DOMAIN_NAME,
       fromEmail: process.env.MAILGUN_FROM_EMAIL,
     }),
+    AuthModule,
+    UsersModule,
+    RestaurantsModule,
     OrdersModule,
   ],
   controllers: [],
